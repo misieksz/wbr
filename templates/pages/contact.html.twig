@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Kontakt{% endblock %}
+
+{% block content %}
+    
+    
+        <article>
+            <div class="contact">
+                <header>
+                   
+                    <h1>Kontakt z nami</h1>
+                    <p>Jeśli chcesz wziąć udział w zajęciach ogranizowanych przez nasze stowarzyszenie lub masz ochote wpierać nasze inicjatywy skontaktuj się z nami!</p>
+                </header>
+                <p>
+                    <p>Stowarzyszenie Warto Być Razem</p>
+                    KRS: 0000471899
+                    <br> NIP: 5170363514
+                    <br> REGON: 181005304
+                    <p>
+                        Rachunek bankowy: 32 1140 2004 0000 3402 7481 3201
+                        <p>
+                            <span class="glyphicon glyphicon-envelope" style="color:#39a5f1;"></span> <a href="mailto:biuro@wartobycrazem.pl">biuro@wartobycrazem.pl</a>
+                            
+                        {% if app.session.has('msgConfirm') %}
+                        <div id="message" class="alert alert-success">{{ app.session.remove('msgConfirm') }}</div>
+                            
+                        {% else %}
+                            
+                            <div class="formContact">
+                                <form id="sendEmail" method="POST" action="{{ url('contact') }}" novalidate>
+                                   {{ form_widget(form) }}
+                                </form>
+                            </div>
+                        {% endif %}
+            </div>
+        </article>
+  
+   {% endblock %}

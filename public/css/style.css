@@ -1,0 +1,66 @@
+
+body {
+
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+ font-size: 16px;
+  margin:0;
+  padding: 0;
+  background: url(../img/texture.jpg);
+ }
+
+header
+{
+	background-color: #fff;
+	padding: 55px;
+	text-align:center;
+}
+
+.targe
+{
+	margin: 60px 0 20px  5px;
+}
+
+h2
+{
+	font-size: 35px;
+	margin: 35px 5px 45px 10px;
+}
+
+p
+{
+	line-height: 30px;
+}
+
+.baner
+{
+	width:  50%;
+	margin: auto;
+	background: url(../img/baner2.jpeg);
+	background-size: contain;
+	min-height: 600px;
+}
+
+footer
+{
+	padding: 20px;
+	background-color: #222;
+	font-size: 14px;
+	color: #fff;
+}
+
+.content
+{
+	background-color: #fff;
+	padding: 20px;
+}
+
+.navbar
+{
+	margin-bottom: 0;
+}
+
+.contact
+{
+	width: 50%;
+	margin: auto;
+}

@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Artykuły{% endblock %}
+
+{% block content %}
+
+    <article id="newest">
+
+            <div class="news" style="margin-top: 0;">
+                <header>
+                    <h1>Artykuły</h1>
+                </header>
+                
+                {% for article in pagination %}
+               <div class="newsList">
+                <div class="newsImg">
+                    {% if article.image is null %}
+                    <img src="{{asset('img/minWbr.png')}}">
+                    {% else %}
+                     <img src="{{ asset('img/articles/min/'~article.image) }}">
+                    {% endif %}
+                </div>
+                <div class="newsText">
+                    <h2>{{ article.title }}</h2>
+                    <h5><strong>Kategoria</strong> <a href="{{path('categoryArts', {'slug' : article.category.slug}) }}">{{ article.category.name }}</a></h5>
+
+                    <div class="sub">{{ article.content|slice(0, 200)|raw }} [...]</div>
+                    <p><i>Autor: {{ article.author.firstName  }} {{ article.author.lastName }}</i></p>
+                    <p class="right"><a class="btn-lg btn-primary" href="{{ path('article', {'slug' : article.slug}) }}">Czytaj więcej</a></p>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+           {% endfor %}
+           
+           
+              {{ knp_pagination_render(pagination, 'pagination/pagination.html.twig') }}
+              
+            </div>
+
+       
+
+
+    </article>
+
+{% endblock %}

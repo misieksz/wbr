@@ -1,0 +1,68 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block adminContent %}
+    
+     <header>
+       <h2 class="text-center">Zarządzanie projektami</h2>
+     </header>
+    
+     {% if app.session.has('editMsg') %}
+         <div id="message" class="alert alert-success">{{ app.session.remove('editMsg') }}</div>
+    {% endif %}
+ 
+    <a class="btn btn-success pull-right" href="{{ path('add_project') }}" style="margin-bottom: 10px;">Dodaj Projekt</a>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'ID', 'id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Nazwa projektu', 'title') }}</th>
+                <th>Akcja</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for project in pagination %}
+            <tr class="removeTr"> 
+                <td> {{ project.id }}</td>
+                <td>{{ project.title }}</td>
+                <td>
+                    {% if is_granted('ROLE_MODERATOR') %}
+                    <a href="{{ path('edit_project', {'id': project.id}) }}" class="btn btn-warning">Edytuj</a>
+                    <a id="unsetArt" href="{{ path('project_delete', {'proId' : project.id, 'delToken': csrf_token(delToken|format(project.id))})  }}" class="removeArt btn btn-danger">Usuń</a>
+                    {% endif %}
+                </td>
+            </tr>
+            
+           
+            {% endfor %}
+
+        </tbody>
+    </table>
+            
+       {{ knp_pagination_render(pagination, 'pagination/pagination.html.twig') }}
+    
+            <div class="artAlert" id="artAlert">
+                <div class="artAlertInfo">
+                    Czy napewno chcesz usunąć projekt?
+                    <div class="artAlertBtn">
+                        <a href="#" id="alertAgree" class="btn btn-warning">Tak</a>
+                        <a href="#" id="alertCancel" class="btn btn-danger">Nie</a>
+                    </div>
+                </div>
+            </div>      
+    
+ {% endblock %}
+
+ {% if is_granted('ROLE_MODERATOR') %}
+     {% block javascripts %}
+         {{ parent() }}
+         <script src="{{ asset('js/deleteAlert.js') }}"></script>
+         <script>
+    
+             $(document).ready(function(){
+                 
+                var removeBtn = $('.removeArt').deleteAlert();
+         });
+         </script>
+     {% endblock %}
+     {% endif %}

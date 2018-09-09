@@ -1,0 +1,15 @@
+{% extends 'email/base.html.twig' %}
+
+{% block title %}Link resetujący hasło{% endblock %}
+
+{% block content %}
+<h2>Witaj,</h2>
+<p>Kliknij w poniższy link, aby zresetować hasło</p>
+<p><a href="{ resetUrl }}">{{ resetUrl }}</a></p>
+Jeśli to nie Ty prosiłeś o zresetowanie hasła zignoruj tą wiadomość!
+<p>Pozdrawiamy</p>
+
+{% endblock %}
+
+
+

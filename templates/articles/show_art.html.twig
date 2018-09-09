@@ -1,0 +1,26 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+    
+    
+       <article>
+            <div class="welcome">
+                <div class="articles">
+                <header>
+                    <h1>{{ article.title }}</h1>
+                </header>
+                
+                    <p>{{ article.content|raw }}</p>
+                    {% if article.image is not null %}
+                    <img src="{{ asset('img/articles/'~article.image) }}" alt="{{ article.title }}">
+                    {% endif %}
+                    <p>Autor: {{ article.author.firstName  }} {{ article.author.lastName }}</p>
+                    <p class="text-right">{{ article.publishedDate|date('m-d-Y') }}</p>
+                </div>
+            </div>
+        </article>
+   
+   {% endblock %}

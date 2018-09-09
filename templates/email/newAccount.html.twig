@@ -1,0 +1,14 @@
+{% extends 'email/base.html.twig' %}
+
+{% block title %}Aktywacja nowego konta{% endblock %}
+
+{% block content %}
+<h2>Witaj,</h2>
+<p>Dziękujemy za rejestracje w Panelu Administracyjnym Stowarzyszenia Warto Być Razem!</p>
+<p>Poniżej przesyłamy link aktywacyjny konto, kliknij w niego i rozpocznij korzystanie z Panelu Administracyjnego!</p>
+<p><a href="{{ activateAccount }}">{{ activateAccount }}</a></p>
+<p>Pozdrawiamy</p>
+{% endblock %}
+
+
+

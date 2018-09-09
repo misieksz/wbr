@@ -1,0 +1,19 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block adminContent %}
+    
+     <header>
+       <h2 class="text-center">Edytuj użytkownika</h2>
+     </header>
+    
+     {% if app.session.has('editMsg') %}
+         <div id="message" class="alert alert-success">{{ app.session.remove('editMsg') }}</div>
+    {% endif %}
+  
+
+    
+    {{ form(userForm, {'attr': {'novalidate': 'true'}}) }} 
+          
+    
+ {% endblock %}
+

@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Strona Główna{% endblock %}
+
+{% block content %}
+
+    <article>
+        <section>
+            <div class="welcome">
+                <header>
+                    
+                    <h1>Witaj na stronie stowarzyszenia</h1>
+                    <p>
+                        Nasze stowarzyszenie zajmuje się organizacją czasu wolnego osób niewidomych, słabo widzących, starszych oraz młodzieży szkolnej. Naszym celem jest integracja środowisk osób z dysfunkcją wzroku z osobami starszymi i młodzieżą szkolną. Pragniemy, aby nasze działania pomogły wspierać integrację społeczną wyżej wymienionych środowisk.
+
+                    </p>
+
+                    <p>
+                        Od pewnego czasu tworzymy pierwszą na terenie małopolski drużynę GoalBall <br><em><strong>WBR Groundhoogs Kraków</strong></em>. Nasze działania dążą do profesjonalizacji i popularyzacji sportu jakim jest GoablBall wśród osób niewidomych i słabo widzących. Głównym naszym celem jest udział w rozgrywkach na arenie krajowej jak i międzynarodowej.
+                    </p>
+                </header>
+                <div class="welcomePhotos">
+                    <figure>
+                        <img src="galery/mikolaj2016/min/min-bIMG_0033.JPG" alt="Mikołaj 2016">
+                        <figcaption>Mikołaj 2016</figcaption>
+                    </figure>
+                </div>
+
+                <div class="welcomePhotos">
+                    <figure>
+                        <img src="galery/goalball/min/min-IMG_1548.jpg" alt="GoalBall Kraków">
+                        <figcaption>GoalBall Kraków</figcaption>
+                    </figure>
+                </div>
+
+                <div class="welcomePhotos">
+                    <figure>
+                        <img src="galery/mikolaj2016/min/min-bIMG_0079.JPG" alt="Mikołaj 2016">
+                        <figcaption>Mikołaj 2016</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+        <section id="newest">
+            <div class="news">
+                <header>
+                    <h1>Aktualności</h1>
+                    <p>Poniżej znajdziesz najnowsze wydarzenia, które miały miejsce w obrębie działań naszej organizacji. Więcej wpisów możesz zobaczyć w dziale aktualności, do którego serdecznie Cię zapraszamy.</p>
+                </header>
+                
+                {% for new in news %}
+               <div class="newsList">
+                <div class="newsImg">
+                    {% if new.image is null %}
+                    <img src="{{asset('img/minWbr.png')}}">
+                    {% else %}
+                     <img src="{{ asset('img/articles/min/'~new.image) }}">
+                    {% endif %}
+                </div>
+                <div class="newsText">
+                    <h2>{{ new.title }}</h2>
+                    <h5><strong>Kategoria</strong> <a href="{{path('categoryArts', {'slug' : new.category.slug}) }}">{{ new.category.name }}</a></h5>
+                    <div class="sub">{{ new.content|raw }}</div>
+                    <p><i>Autor: {{ new.author.firstName  }} {{new.author.lastName }}</i></p>
+                    <p class="right"><a class="btn-lg btn-primary" href="{{ path('article', {'slug' : new.slug}) }}">Czytaj więcej</a></p>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+           {% endfor %}
+           
+           
+         
+              
+           
+
+        </section>
+
+        <section>
+            <div class="contact">
+                <header>
+                    <h1>Kontakt z nami</h1>
+                    <p>Jeśli chcesz wziąć udział w zajęciach ogranizowanych przez nasze stowarzyszenie lub masz ochote wpierać nasze inicjatywy skontaktuj się z nami!</p>
+                    <a href="kontakt.html" class="btnContact">Kontakt do nas</a>
+                </header>
+            </div>
+        </section>
+
+    </article>
+
+{% endblock %}
+

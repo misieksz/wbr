@@ -1,0 +1,66 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block adminContent %}
+    
+     <header>
+       <h2 class="text-center">Zarządzanie użytkownikami</h2>
+     </header>
+    
+     {% if app.session.has('editMsg') %}
+         <div id="message" class="alert alert-success">{{ app.session.remove('editMsg') }}</div>
+    {% endif %}
+  
+    <a class="btn btn-success pull-right" href="{{ path('register_user') }}" style="margin-bottom: 10px;">Zarejestruj użytkownika</a>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>L.p.</th>
+                <th>Użytkownik</th>
+                <th>Akcja</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for user in users %}
+            <tr class="removeTr"> 
+                <td> {% set counter = ( counter | default(0) ) + 1 %}{{ counter }}.</td>
+                <td>{{ user.username }}</td>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('edit_users', {'id': user.id}) }}" class="btn btn-warning">Edytuj</a>
+                    <a id="unsetUser" href="{{ path('users_delete', {'userId' : user.id, 'delToken': csrf_token(delToken|format(user.id))})  }}" class="removeArt btn btn-danger">Usuń</a>
+                    {% endif %}
+                </td>
+            </tr>
+            
+           
+            {% endfor %}
+
+        </tbody>
+    </table>
+    
+            <div class="artAlert" id="artAlert">
+                <div class="artAlertInfo">
+                    Czy napewno chcesz usunąć artykuł?
+                    <div class="artAlertBtn">
+                        <a href="#" id="alertAgree" class="btn btn-warning">Tak</a>
+                        <a href="#" id="alertCancel" class="btn btn-danger">Nie</a>
+                    </div>
+                </div>
+            </div>      
+    
+ {% endblock %}
+
+ {% if is_granted('ROLE_MODERATOR') %}
+     {% block javascripts %}
+         {{ parent() }}
+         <script src="{{ asset('js/deleteAlert_1_1.js') }}"></script>
+         <script>
+    
+             $(document).ready(function(){
+                 
+                var removeBtn = $('.removeArt').deleteAlert();
+         });
+         </script>
+     {% endblock %}
+     {% endif %}

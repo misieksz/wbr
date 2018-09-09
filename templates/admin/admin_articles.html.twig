@@ -1,0 +1,83 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block adminContent %}
+    
+     <header>
+       <h2 class="text-center">Zarządzanie artykułami</h2>
+     </header>
+    
+     {% if app.session.has('editMsg') %}
+         <div id="message" class="alert alert-success">{{ app.session.remove('editMsg') }}</div>
+    {% endif %}
+    {% if app.session.has('addArt') %}
+         <div id="message" class="alert alert-success">{{ app.session.remove('addArt') }}</div>
+    {% endif %}
+    
+    <div class="publishList">
+        
+        {% for key, val in publishedStatus %}
+       <div class="publishedOption {{ status == val ? 'activeOption' : ''  }}">
+           {% if status == val %}
+               {{key}} ({{ statistics[val] }})
+           {% else %}
+               <a href="{{ path('admin_articles' ,{'status' : val}) }}">{{ key }} ({{ statistics[val] }})</a>
+           {% endif %}
+       </div> 
+    {% endfor %}
+    </div>
+    
+    <a class="btn btn-success pull-right" href="{{ path('add_article') }}" style="margin-bottom: 10px;">Dodaj Artykuł</a>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'ID', 'id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Artykuł', 'title') }}</th>
+                <th>Akcja</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for art in pagination %}
+            <tr class="removeTr"> 
+                <td>{{ art.id }}</td>
+                <td>{{ art.title }}</td>
+                <td>
+                    {% if is_granted('ROLE_MODERATOR') %}
+                    <a href="{{ path('edit_article', {'id': art.id}) }}" class="btn btn-warning">Edytuj</a>
+                    <a id="unsetArt" href="{{ path('art_delete', {'artId' : art.id, 'delToken': csrf_token(delToken|format(art.id))})  }}" class="removeArt btn btn-danger">Usuń</a>
+                    {% endif %}
+                </td>
+            </tr>
+            
+           
+            {% endfor %}
+
+        </tbody>
+    </table>
+     {{ knp_pagination_render(pagination, 'pagination/pagination.html.twig') }}
+
+            <div class="artAlert" id="artAlert">
+                <div class="artAlertInfo">
+                    Czy napewno chcesz usunąć artykuł?
+                    <div class="artAlertBtn">
+                        <a href="#" id="alertAgree" class="btn btn-warning">Tak</a>
+                        <a href="#" id="alertCancel" class="btn btn-danger">Nie</a>
+                    </div>
+                </div>
+            </div>      
+    
+ {% endblock %}
+
+ {% if is_granted('ROLE_MODERATOR') %}
+     {% block javascripts %}
+         {{ parent() }}
+         <script src="{{ asset('js/deleteAlert.js') }}"></script>
+         <script>
+    
+             $(document).ready(function(){
+                 
+                var removeBtn = $('.removeArt').deleteAlert();
+         });
+         </script>
+     {% endblock %}
+     {% endif %}

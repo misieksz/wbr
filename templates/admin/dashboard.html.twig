@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Panel Administracyjny{% endblock %}
+
+{% block content %}
+
+    <article>
+     
+                
+                <div class="panelAdmin">
+             
+                <div class="adminMenu">
+                    <ul>
+                        <li><a href="{{ path('admin_articles') }}">Zarządzaj artykułami</a></li>
+                        <li><a href="{{ path('admin_projects') }}">Zarządzaj projektami</a></li>
+                        <li><a href="{{ path('user_setings') }}">Moje dane</a></li>
+                        <li><a href="{{ path('register_user') }}">Rejestracja</a></li>
+                       {% if is_granted("ROLE_ADMIN") %}
+                        <li><a href="{{ path('admin_users') }}">Zarządzaj użytkownikami</a></li>
+                       {% endif %}
+                    </ul>
+                </div>
+                <div class="adminContent">
+                    
+                    {% block adminContent %}
+                    {% endblock %}
+                    
+                </div>
+            </div>
+        </div>
+                
+           
+
+        
+
+     
+
+    </article>
+
+{% endblock %}

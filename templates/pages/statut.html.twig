@@ -1,0 +1,22 @@
+{% extends "base.twig" %}
+
+{% block title %}Statut{% endblock %}
+
+{% block content %}
+    
+    
+        <article>
+            <div class="contact">
+                <header>
+                    <h1>Statut stowarzyszenia</h1>
+                </header>
+                
+                <p>
+                    {% for stat in statut %}
+                        {{ stat.title }}
+                    {% endfor %}
+                </p>
+            </div>
+        </article>
+  
+   {% endblock %}

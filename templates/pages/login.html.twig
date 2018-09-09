@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Panel Administracyjny{% endblock %}
+
+{% block content %}
+
+    <article id="newest">
+     
+        
+            <div class="news">
+                <header>
+                    <h1 class="text-center">Logowanie</h1>
+                </header>
+                
+               {% if app.session.has('success') %}
+                   <div class="alert alert-success">{{app.session.remove('success')}}</div>
+                {% endif %}
+                
+                 {% if error %}
+                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                         {% endif %}
+                <div class="login">
+                   
+                   
+                    {{ form_start(login_form, {attr: {novalidate: 'novalidate', 'action':path('login')}}) }}
+                    {{ form_row(login_form.username, {attr: {value : last_username}}) }}
+                    {{ form_end(login_form) }}
+                </div>
+                
+            </div>
+
+        
+
+     
+
+    </article>
+
+{% endblock %}

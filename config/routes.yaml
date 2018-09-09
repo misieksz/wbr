@@ -1,0 +1,8 @@
+#main_route:
+#    resource: routes/routing.yml
+#
+admin_panel:
+    resource: ../src/Controller/AdminController.php
+    type: annotation
+    prefix: /admin
+    

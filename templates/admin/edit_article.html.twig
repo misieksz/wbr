@@ -1,0 +1,52 @@
+
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('js/jqueryui/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('js/jqueryui/jquery-ui.theme.min.css') }}">
+  <style type="text/css">
+.ui-datepicker-calendar tr, .ui-datepicker-calendar td, .ui-datepicker-calendar td a, .ui-datepicker-calendar th{font-size:inherit;}
+div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
+.ui-datepicker-title span{font-size:16px;}
+</style>
+    
+  {% endblock %}
+
+{% block adminContent %}
+    
+     <header>
+       <h2 class="text-center">Edytuj artykuł</h2>
+     </header>
+    
+    {{ form(form, {'attr' :{'novalidate': 'true'}}) }} 
+    
+ {% endblock %}
+
+ {% block javascripts %}
+     {{ parent() }}
+     <script src="{{asset('js/jqueryui/jquery-ui.min.js')}}"></script>
+     <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
+
+     <script>
+         
+       CKEDITOR.replace('article_content');
+
+         
+    $( function() {
+      
+    $( '#article_publishedDate' ).datepicker({
+      showButtonPanel: true,
+      dateFormat: 'dd-mm-yy',
+      dayNamesMin: ['Nd', 'Pon', 'Wt', 'Śr', 'Cz', 'Pt', 'So'],
+      firstDay: 1,
+      constrainInput: true,
+      monthNames: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
+    'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+    currentText: 'Dzisiaj', currentStatus: '',
+    closeText: 'Zamknij', closeStatus: 'Zamknij kalendarz',
+    minDate: new Date()
+  } );
+    });     
+     </script>
+  {% endblock %}

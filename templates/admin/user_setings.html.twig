@@ -1,0 +1,23 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block adminContent %}
+     <header>
+       <h2 class="text-center">Ustawienia konta</h2>
+     </header>
+       
+     {% for type, messages in app.session.flashbag.all %}
+         {% for message in messages %}
+             <div class="alert alert-{{type}}">{{message}}</div>
+         {% endfor %}
+     {% endfor %}
+     
+    
+    <div class="col-lg-6">
+    {{ form(userSetingsForm, {'attr': {'novalidate': 'true'}}) }} 
+    </div>
+    <div class="col-lg-6">
+         {{ form(changePasswordForm, {'attr': {'novalidate': 'true'}}) }} 
+    </div>
+ {% endblock %}
+
+ 

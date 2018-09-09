@@ -1,0 +1,101 @@
+{% import 'macros.html.twig' as macro %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %} | Warto Być Razem</title>
+
+    <!-- meta tags -->
+	<meta charset="utf-8">
+   <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+    <meta name="robots" content="ALL">
+<meta name="revisit-after" content="3 days">
+<META NAME="description" CONTENT="Stowarzyszenie Warto Być Razem zajmuje się organizacją czasu wolnego osób niewidomych, słabo widzących, starszych oraz młodzieży szkolnej.">
+
+<META NAME="keywords" CONTENT="goalball, goalball kraków, stowarzyszenie, osoby starsze, osoby niewidome, osoby slabowidzace, osoby slabo widzace, osoby z dysfunkcja wzroku, Stowarzyszenie Warto Być Razem, Warto Być Razem, stowarzyszenie warto być razem, warto być razem, warto byc razem, warto, byc, razem, fundacja, stowarzyszenie, osoby z dysfunkcją wzroku, starsze, integracja, osoby słabowidzące, osoby slabo widzace, osoby z dysfunkcja wzroku, Stowarzyszenie Warto Być Razem, Warto Być Razem, stowarzyszenie warto być razem, warto być razem, warto byc razem, warto, byc, razem, fundacja, stowarzyszenie, osoby z dysfunkcją wzroku, starsze, osoby słabowidzące, młodzież szkolna, www.wartobycrazem.pl, wartobycrazem.pl, wartobycrazem">
+<META NAME="copyright" CONTENT="wartobycrazem.pl">
+<meta name="Author" content="Stowarzyszenie Warto Być Razem">
+<META name="abstract" CONTENT="Stowarzyszenie Warto Być Razem zajmuje się organizacją czasu wolnego osób niewidomych, słabo widzących, starszych oraz młodzieży szkolnej.">
+
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/fontello/css/fontello.css') }}">
+{% endblock %}
+
+</head>
+<body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.9";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<header>
+
+<div class="logo">
+<img src="{{ asset('img/logo.png') }}" alt="wartobycrazem.pl">
+</div>
+<nav>
+
+<div class="mobileMenu">MENU <span class="glyphicon glyphicon-menu-down"></span></div>
+
+    {{ macro.menu() }}
+
+  {#<ul class="menu">
+        <li><a href="{{ url("home") }}">Strona Główna</a></li>
+        <li id="slidedown"><a href="#">Projekty <span class="glyphicon glyphicon-menu-down"></span></a>
+        	<ol id="down">
+            	<li><a href="goalball.php">GoalBall Kraków</a></li>
+              	<li><a href="mikolaj2016.php">Mikołaj 2016</a></li>
+            </ol>
+          </li>
+        <li><a href="statut.php">Statut</a></li>
+        <li><a href="{{ url("kontakt") }}">Kontakt</a></li>
+
+  </ul>#}
+
+</nav>
+
+</header>
+
+<main>
+
+    {% block content %}{% endblock %}
+    
+</ma
+in>
+
+
+<footer>
+<div class="socials">
+<div class="fb"><a href="https://www.facebook.com/GoalBallKrakow" target="_blank"><i class="icon-facebook"></i></a></div>
+<div class="yt"><i class="icon-youtube"></i></div>
+
+</div>
+<div class="copy">
+&copy; Stowarzyszenie Warto Być Razem 2017r.
+</div>
+
+</footer>
+
+
+
+{% block javascripts %}
+ <script type="text/javascript" src="{{ asset('js/jquery-2.2.1.js') }}"></script>  
+ <script type="text/javascript" src="{{ asset('js/jqueryui/external/jquery/jquery.js') }}"></script>
+        <script src="{{ asset('js/jquery-lightbox-master/jquery.lightbox.js') }}"></script>
+        <script src="{{ asset('js/scripts.js') }}"></script>
+
+{% endblock %}
+</body>
+</html>
