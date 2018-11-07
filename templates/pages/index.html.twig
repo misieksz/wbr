@@ -4,6 +4,9 @@
 
 {% block content %}
 
+
+
+    {#
     <article>
         <section>
             <div class="welcome">
@@ -87,6 +90,134 @@
         </section>
 
     </article>
+#}
+
+    <article>
+        <div class="container-fluid bg-light-gray">
+            <div class="container">
+
+
+
+                <section>
+
+                    <div class="row">
+                        <div class="col-md-12 my-5">
+ 
+
+                            <header>
+                                <h1>Witaj na stronie</h1>
+                                <p>
+                                    Nasze stowarzyszenie zajmuje się organizacją czasu wolnego osób niewidomych, słabo widzących, starszych oraz młodzieży szkolnej. Naszym celem jest integracja środowisk osób z dysfunkcją wzroku z osobami starszymi i młodzieżą szkolną. Pragniemy, aby nasze działania pomogły wspierać integrację społeczną wyżej wymienionych środowisk.
+                                </p>
+                                <p>
+                                    Od pewnego czasu tworzymy pierwszą na terenie małopolski drużynę GoalBall
+                                    WBR Groundhoogs Kraków. Nasze działania dążą do profesjonalizacji i popularyzacji sportu jakim jest GoablBall wśród osób niewidomych i słabo widzących. Głównym naszym celem jest udział w rozgrywkach na arenie krajowej jak i międzynarodowej.
+                                </p>
+                            </header>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+
+                            <figure class="d-md-inline-block">
+                                <img class="img-fluid" src="galery/mikolaj2016/min/min-bIMG_0033.JPG" alt="Mikołaj 2016">
+                                <figcaption>Mikołaj 2016</figcaption>
+                            </figure>
+
+
+
+                            <figure class="d-md-inline-block">
+                                <img class="img-fluid" src="galery/goalball/min/min-IMG_1548.jpg" alt="GoalBall Kraków">
+                                <figcaption>GoalBall Kraków</figcaption>
+                            </figure>
+
+
+
+                            <figure class="d-md-inline-block">
+                                <img class="img-fluid" src="galery/mikolaj2016/min/min-bIMG_0079.JPG" alt="Mikołaj 2016">
+                                <figcaption>Mikołaj 2016</figcaption>
+                            </figure>
+
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+
+        </div>
+
+        <div class="container-fluid">
+            <div class="container">
+                <section>
+                    <div class="row">
+                        <div class="col-md-12 my-5">
+                            <header>
+                                <h1>Aktualności</h1>
+                                <p>
+                                    Poniżej znajdziesz najnowsze wydarzenia związane z działaniami naszej organizacji.
+                                </p>
+                            </header>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="offset-md-2 col-md-8 offset-md-2">
+
+                            {% for new in news %}
+                                
+                                <div class="bg-light-gray p-2 mt-2 mb-2" style="border-radius: 5px;">
+                                <div class="media">
+                                    {% if new.image is null %}
+                                        <img class="align-self-center mr-3" src="{{asset('img/minWbr.png')}}" alt="obraz wbr"/>
+                                    {% else %}
+                                        <img class="align-self-center mr-3" src="{{ asset('img/articles/min/'~new.image) }}" alt=""/>
+                                    {% endif %}
+                                    <div class="media-body">
+                                      <h5 class="mt-0">{{ new.title }}</h5>
+
+                                        <h6><strong>Kategoria</strong> <a href="{{path('categoryArts', {'slug' : new.category.slug}) }}">{{ new.category.name }}</a></h6>
+                                        <div class="sub">{{ new.content|slice(0, 200)|raw
+                                            }} [...]</div>
+                                        
+                    
+                                       
+                                    </div>
+
+                                </div>
+                              <div class="text-right">     
+                               <a class="btn btn-primary" href="{{ path('article', {'slug' : new.slug}) }}">Czytaj więcej</a>
+                              </div>
+                                </div>                                                              
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class="container-fluid bg-light-gray">
+            <div class="container">
+                <section>
+                    <div class="row">
+                        <div class="offset-md-2 col-md-8">
+                            <div class="contact">
+                                <header>
+                                    <h1>Kontakt z nami</h1>
+                                    <p>Jeśli chcesz wziąć udział w zajęciach ogranizowanych przez nasze stowarzyszenie lub masz ochote wpierać nasze inicjatywy skontaktuj się z nami!</p>
+                                    <div class="text-center mt-5 mb-5">
+                                        <a href="{{ path('contact') }}" class="btn btn-outline-info btn-lg">Kontakt do nas</a>
+                                    </div>
+                                </header>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </article>
+
 
 {% endblock %}
 

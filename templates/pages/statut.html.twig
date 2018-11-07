@@ -1,22 +1,26 @@
-{% extends "base.twig" %}
+{% extends "base.html.twig" %}
 
 {% block title %}Statut{% endblock %}
 
 {% block content %}
-    
-    
-        <article>
-            <div class="contact">
-                <header>
-                    <h1>Statut stowarzyszenia</h1>
-                </header>
-                
-                <p>
-                    {% for stat in statut %}
-                        {{ stat.title }}
-                    {% endfor %}
-                </p>
+
+
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <header>
+                        <h1>Statut stowarzyszenia</h1>
+                    </header>
+
+                    <div class="text-center">
+                        {% for stat in statut %}
+                            {{ stat.context|raw }}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-        </article>
-  
-   {% endblock %}
+        </div>
+    </article>
+
+{% endblock %}

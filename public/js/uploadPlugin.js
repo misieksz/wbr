@@ -1,5 +1,139 @@
 (function($){
+
+
+
+
+
+
+var uploadFiles = $('#projects_files')[0]; 
+      
+
+function createUploadAlert(textBtn) {
+    var artAlert = $('#artAlert');
+
+    if (!artAlert.length) {
+        artAlert = $('<div></div>', {
+            'id': 'artAlert',
+            'class': 'artAlert'
+        }).appendTo('#delegate');
+
+        var alertInfo = $('#artAlertInfo');
+
+        if (!alertInfo.length) {
+            alertInfo = $('<div></div>', {
+                'id': 'artAlertInfo',
+                'class': 'artAlertInfo'
+            }).appendTo(artAlert);
+            
+              var statusBar = $('#statusBar');
+            if(!statusBar.length)
+            {
+                var statusBar = $('<output></output>', {
+                    'id' : 'statusBar'
+                }).text('Postęp wysyłania').appendTo(alertInfo);
+            }
+            
+            var progressBar = $('#progressBar');
+            if(!progressBar.length)
+            {
+                var progressBar = $('<progress></progress>', {
+                    'id' : 'progressBar',
+                     'value' : 0,
+                    'max' : 100
+                }).appendTo(alertInfo);
+            }
+            
+          
+        } 
+       
+    }
+    return artAlert;
+}
+
+function showUploadAlert() {
+    var artAlert = createUploadAlert();
+
+
+    artAlert.css({
+        left: $(window).width() / 2 + $(document).scrollLeft() - 140,
+        top: $(window).height() / 2 + $(document).scrollTop() - 45
+    });
+   
     
+    artAlert.fadeIn(500);
+}
+
+function closeUploadAlert() {
+
+    var artAlert = $('#artAlert');
+    artAlert.fadeOut(500);
+
+    var overlay = $('#overlay');
+    overlay.fadeOut(3000);
+}
+
+
+function sendFiles(fileInput, uploadFile) {
+    
+    let formData = new FormData();
+    
+    for(let i=0; i<uploadFile.files.length; i++){
+    formData.append(fileInput, uploadFile.files[i]);
+    }   
+
+    let xhr = new XMLHttpRequest();
+    xhr.upload.addEventListener("progress", progress, false);
+    xhr.addEventListener("load", completeSend, false);
+    xhr.addEventListener("error", errorSend, false);
+    xhr.addEventListener("abort", abortSend, false);
+    xhr.open("POST", "new-project", true);
+    xhr.send(formData);
+}
+
+
+function progress(event) {
+    
+    showOverlay();
+    showUploadAlert();
+    
+    
+    var progressBar = $('#progressBar'),
+        statusBar = $('#statusBar');
+    
+    var percent = Math.round((event.loaded/event.total)*100);
+    statusBar.text("Wysłano "+convertedBytes(event.loaded)+" z "+convertedBytes(event.total)+" ("+percent+"%)");
+    progressBar.val(percent);
+}
+
+function completeSend(event) {
+    closeUploadAlert();
+}
+
+function errorSend(event) {
+    $("#status").text("Wysyłanie nie powiodło się!");
+}
+
+function abortSend(event) {
+    $("#status").text("Wysyłanie zostało przerwane!");
+}
+
+function convertedBytes(bytes) {
+    var kilobyte = 1024;
+    var megabyte = kilobyte*1024;
+    var gigabyte = megabyte*1024;
+    var terabyte = gigabyte*1024;
+
+    if (bytes>=0 && bytes<kilobyte) return bytes+" B";
+    else if(bytes>=kilobyte && bytes<megabyte) return Math.round(bytes/kilobyte)+" kB";
+    else if(bytes>=megabyte && bytes<gigabyte) return Math.round(bytes/megabyte)+" MB";
+    else if(bytes>=gigabyte && bytes<terabyte) return Math.round(bytes/gigabyte)+" GB";
+    else if(bytes>=terabyte) return Math.round(bytes/terabyte)+" TB";
+    else return bytes+" B";
+}
+    
+    
+/* alert for size of file */
+
 function createOverlay() {
     var overlay = $('#overlay');
 
@@ -84,10 +218,12 @@ var defaults = {
     textBtn: 'Zamknij',
     fadeInSpeed  : 500,
     fadeOutSpeed : 500,
-    maxFileSize  : 1024
+    maxFileSize  : 1024,
+    fileInput : null,
+    uploadFile : null
 };
 
-$.fn.fileSizeAlert = function (userOptions) {
+$.fn.uploadPlugin = function (userOptions) {
 
     var options = $.extend({}, defaults, userOptions);
 
@@ -98,15 +234,14 @@ $.fn.fileSizeAlert = function (userOptions) {
         that.on('submit', function (e) {
             e.preventDefault();
 
-            var files = $('#projects_files');
     
     
             var sum = 0;
            
             
-            for(var i=0; i<files[0].files.length; i++) {
+            for(var i=0; i<options.uploadFile.files.length; i++) {
                 
-                sum = sum+files[0].files[i].size;
+                sum = sum+options.uploadFile.files[i].size;
                
             }
             sum = Math.round(sum/1024);
@@ -117,7 +252,9 @@ $.fn.fileSizeAlert = function (userOptions) {
                 showAlert(options.textBtn, options.fadeInSpeed);
                 return false;
             } else {
+                sendFiles(options.inputFile, options.uploadFile);
                 this.submit();
+                
             }
 
             
@@ -143,7 +280,3 @@ $.fn.fileSizeAlert = function (userOptions) {
 };
 
 }) (jQuery);
-
-
-
-

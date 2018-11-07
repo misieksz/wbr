@@ -7,38 +7,46 @@
 {% block title %}{{projects.title }}{% endblock %}
 
 {% block content %}
-    
-    
-       <article>
-                 <div class="projects">
 
-    	<section>
-		<header>
-			<h1>{{ projects.title }}</h1>
-        </header>
-        
+    <div class="container">
+        <article>
+
+            <div class="row">
+                <div class="col-md-12 my-4">
+
+                    <section>
+                        <header>
+                            <h1>{{ projects.title }}</h1>
+                        </header>
+
                         {{ projects.content|raw }}
 
-	</section>
-       {% set alt = projects.title %}                 
-       {% if projects.images is not null %}                 
-    <section>
-    <header>
-    <h1>Galeria zdjęć</h1>
-    </header>
+                    </section>
+                </div>
+            </div>
+            {% set alt = projects.title %}                 
+            {% if projects.images is not null %}
+                <div class="row">
+                    <div class="col-md-12 my-4">
+                        <section>
+                            <header>
+                                <h1>Galeria zdjęć</h1>
+                            </header>
 
-    <div class="galery">
-        {% for image in projects.images %}
-    <div class="miniatures">
-		<a href="{{ asset('img/projects/'~image) }}" class="lightbox"  rel="lightbox"><img src="{{ asset('img/projects/min/'~image) }}" alt="Zdjęcie z galerii {{alt}}"></a>
-		</div>
-        {% endfor %}
+                            <div class="galery">
+                                {% for image in projects.images %}
+                                    <div class="miniatures">
+                                        <a href="{{ asset('img/projects/'~image) }}" class="lightbox"  rel="lightbox"><img src="{{ asset('img/projects/min/'~image) }}" alt="Zdjęcie z galerii {{alt}}"></a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </section>
+                    </div>
+                </div>
+            {% endif %}
+        </article>
+
     </div>
 
-    </section>
-    {% endif %}
-       </div>
-
-        </article>
-   
-   {% endblock %}
+{% endblock %}

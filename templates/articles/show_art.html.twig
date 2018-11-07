@@ -7,20 +7,22 @@
     
     
        <article>
-            <div class="welcome">
-                <div class="articles">
+           <div class="container">
+            <div class="row">
+                <div class="col-md-12">
                 <header>
-                    <h1>{{ article.title }}</h1>
+                    <h1 class="mt-5 mb-5">{{ article.title }}</h1>
                 </header>
                 
                     <p>{{ article.content|raw }}</p>
                     {% if article.image is not null %}
-                    <img src="{{ asset('img/articles/'~article.image) }}" alt="{{ article.title }}">
+                    <img class="img-fluid" src="{{ asset('img/articles/'~article.image) }}" alt="{{ article.title }}">
                     {% endif %}
-                    <p>Autor: {{ article.author.firstName  }} {{ article.author.lastName }}</p>
+                    <p class="mt-4"><strong>Autor:</strong> {{ article.author.firstName  }} {{ article.author.lastName }}</p>
                     <p class="text-right">{{ article.publishedDate|date('m-d-Y') }}</p>
                 </div>
             </div>
+           </div>
         </article>
    
    {% endblock %}

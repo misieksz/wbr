@@ -24,7 +24,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                default_target_path: dashboard
+                default_target_path: admin_articles
                 username_parameter: login[username]
                 password_parameter: login[password]
                

@@ -26,17 +26,18 @@
     <script src="{{asset('js/jqueryui/jquery-ui.min.js')}}"></script>
     <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
      <script src="{{ asset('js/fileSizeAlert.js') }}"></script>
-    <script src="{{ asset('js/upload_1.js') }}"></script>
+    <script src="{{ asset('js/uploadPlugin.js') }}"></script>
     <script>
         var send = document.querySelector('#projects_save');
 
-        send.addEventListener('click', sendFiles, false);
+        //send.addEventListener('click', sendFiles, false);
 
     </script>
 
     <script>
 
-        CKEDITOR.replace('projects_content');
+       CKEDITOR.replace('projects_content');
+    
 
         
     </script>
@@ -45,11 +46,17 @@
     
     var form = $('#projects_form');
             
-      form.fileSizeAlert({
-          maxFileSize : 10000
-      });      
+      form.uploadPlugin({
+          maxFileSize : 10000,
+          fileInput : "projects_files[]",
+          uploadFile : $('#projects_files')[0]
+      });     
     
-    
+        
+       
+        
+
+
     </script>
 {% endblock %}
 

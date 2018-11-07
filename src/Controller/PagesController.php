@@ -22,6 +22,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Form\LoginType;
 use App\Form\RememberPasswordType;
 use App\Entity\Projects;
+use App\Entity\Statut;
 
 class PagesController extends Controller
 {
@@ -47,6 +48,20 @@ class PagesController extends Controller
             'news' => $news
         );
     }
+    
+    /**
+     * @Route("/statut", name="statut")
+     * 
+     * @Template
+     */
+     public function statut()
+     {
+         $Repo = $this->getDoctrine()->getRepository(Statut::class)->findAll();
+         
+         return array(
+             'statut' => $Repo
+         );
+     }
         
      /**
      * 
@@ -72,11 +87,9 @@ class PagesController extends Controller
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($articles, $page, 3);
         
-        $artImage = $articles->getImage() === null ? self::DEFAULT_IMAGE : $articles->getImage();
         
         return array(
-            'pagination' => $pagination,
-            'artImage' => $artImage
+            'pagination' => $pagination
         );
     }
     

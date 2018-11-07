@@ -22,14 +22,18 @@ div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
         <div class="alert alert-success">{{ app.session.remove('addArt') }}</div>
     {% endif %}
     
-    {{ form(formArticle, {'attr': {'novalidate': 'true'}}) }} 
+    {{ form(formArticle, {'attr': {'novalidate': 'true', 'id' : 'articles_form'}}) }} 
    
+    
+    <div id="delegate"></div>
  {% endblock %}
 
  {% block javascripts %}
      {{ parent() }}
      <script src="{{asset('js/jqueryui/jquery-ui.min.js')}}"></script>
      <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
+     <script src="{{ asset('js/fileSizeAlert.js') }}"></script>
+     <script src="{{ asset('js/uploadPlugin.js') }}"></script>
      <script>
          
     CKEDITOR.replace('article_content');  
@@ -50,4 +54,17 @@ div.ui-datepicker{font-size:16px;width:inherit;height:inherit;}
   } );
     });     
      </script>
+     <script>
+    
+    var form = $('#articles_form');
+            
+
+        form.uploadPlugin({
+            maxFileSize: 10000,
+            fileInput: "articles_files[]",
+            uploadFile: $('#article_thumbnail')[0]
+        });    
+    
+    
+    </script>
   {% endblock %}
