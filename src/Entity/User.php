@@ -77,10 +77,10 @@ class User implements AdvancedUserInterface, \Serializable
     private $password;
     
       /** 
-      * @Assert\NotBlank(groups={"Register", "ChangePassword"})
+      * @Assert\NotBlank(groups={"ChangePassword"})
        * @Assert\Length(
        * min=8,
-       * groups={"Register", "ChangePassword"})
+       * groups={"ChangePassword"})
        *
        */
     private $plainPassword;

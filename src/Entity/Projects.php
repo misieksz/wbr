@@ -56,7 +56,7 @@ class Projects {
      * @Assert\All({
      *     
      *     @Assert\File(
-     *     maxSize = "10M",
+     *     maxSize = "20M",
      *     mimeTypes = {
      *      "image/png",
  *          "image/jpeg",
