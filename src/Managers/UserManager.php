@@ -97,7 +97,7 @@ class UserManager
             'resetUrl' => $resetUrl
         ));
         
-        $this->Mailer->sendEmail('biuro@wartobycrazem.pl', $User->getEmail(), 'Link resetujący hasło', $emailBody);
+        $this->Mailer->sendEmail(['biuro@wartobycrazem.pl' => 'Warto Być Razem'], $User->getEmail(), 'Link resetujący hasło', $emailBody);
         return true;
     }
     
@@ -129,7 +129,7 @@ class UserManager
                 array(
                     'plainPassword' => $plainPassword
                 ));
-        $this->Mailer->sendEmail('biuro@wartobycrazem.pl', $User->getEmail(), 'Nowe hasło', $msgBody);
+        $this->Mailer->sendEmail(['biuro@wartobycrazem.pl' => 'Warto Być Razem'], $User->getEmail(), 'Nowe hasło', $msgBody);
         return true;
     }
     
@@ -162,7 +162,7 @@ class UserManager
        
 
        
-       $this->Mailer->sendEmail('biuro@wartobycrazem.pl', $User->getEmail(), 'Aktywacja nowego konta', $msgBody);
+       $this->Mailer->sendEmail(['biuro@wartobycrazem.pl' => 'Warto Być Razem'], $User->getEmail(), 'Aktywacja nowego konta', $msgBody);
        
        return true;
     }

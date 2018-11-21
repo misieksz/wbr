@@ -20,7 +20,7 @@ class Mailer
        
     }
     
-    public function sendEmail($from, $to, $subject, $msgBody) 
+    public function sendEmail(array $from, $to, $subject, $msgBody) 
     {
         $message = (new \Swift_Message())
                 ->setFrom($from)
