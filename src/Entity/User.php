@@ -41,7 +41,8 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(type="string", length=120, unique=true)
      
-     * @Assert\Email(groups={"Register"})
+     * @Assert\NotBlank(groups={"Register", "RememberPassword"})
+     * @Assert\Email(groups={"Register", "RememberPassword"})
      * @Assert\Length(
      * max=120,
       * groups={"Register", "userManage"})
@@ -80,7 +81,7 @@ class User implements AdvancedUserInterface, \Serializable
       * @Assert\NotBlank(groups={"ChangePassword"})
        * @Assert\Length(
        * min=8,
-       * groups={"ChangePassword"})
+       * groups={"Register", "ChangePassword"})
        *
        */
     private $plainPassword;

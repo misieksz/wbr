@@ -42,8 +42,10 @@
                 <td>{{ art.id }}</td>
                 <td>{{ art.title }}</td>
                 <td>
-                    {% if is_granted('ROLE_MODERATOR') %}
+                    {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('edit_article', {'id': art.id}) }}" class="btn btn-warning">Edytuj</a>
+                    {% endif %}
+                     {% if is_granted('ROLE_ADMIN') %}
                     <a id="unsetArt" href="{{ path('art_delete', {'artId' : art.id, 'delToken': csrf_token(delToken|format(art.id))})  }}" class="removeArt btn btn-danger">Usuń</a>
                     {% endif %}
                 </td>

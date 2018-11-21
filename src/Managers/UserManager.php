@@ -97,7 +97,7 @@ class UserManager
             'resetUrl' => $resetUrl
         ));
         
-        $this->Mailer->sendEmail('michal.szpyrka@gmail.com', 'michal.szpyrka@gmail.com', 'Link resetujący hasło', $emailBody);
+        $this->Mailer->sendEmail('biuro@wartobycrazem.pl', $User->getEmail(), 'Link resetujący hasło', $emailBody);
         return true;
     }
     
@@ -119,6 +119,7 @@ class UserManager
         
         $User->setPassword($encodePasswd);
         $User->setActionToken(null);
+        $User->setEnabled(true);
         
         $em = $this->Doctrine->getManager();
         $em->persist($User);
@@ -128,7 +129,7 @@ class UserManager
                 array(
                     'plainPassword' => $plainPassword
                 ));
-        $this->Mailer->sendEmail('michal.szpyrka@gmail.com', 'michal.szpyrka@gmail.com', 'Nowe hasło', $msgBody);
+        $this->Mailer->sendEmail('biuro@wartobycrazem.pl', $User->getEmail(), 'Nowe hasło', $msgBody);
         return true;
     }
     
@@ -159,7 +160,9 @@ class UserManager
         'activateAccount' => $activateAccount
         ));
        
-       $this->Mailer->sendEmail('michal.szpyrka@gmail.com', 'michal.szpyrka@gmail.com', 'Aktywacja nowego konta', $msgBody);
+
+       
+       $this->Mailer->sendEmail('biuro@wartobycrazem.pl', $User->getEmail(), 'Aktywacja nowego konta', $msgBody);
        
        return true;
     }

@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class RememberPasswordType extends AbstractType 
 {
@@ -15,12 +14,8 @@ class RememberPasswordType extends AbstractType
         
         $builder
                 ->add('email', EmailType::class, array(
-                    'label' => 'Podaj adres e-mail',
-                    'constraints' => array(
-                        new Assert\NotBlank,
-                        new Assert\Email 
-                    )
-                ))
+                    'label' => 'Podaj adres e-mail'
+                    ))
                 ->add('send', SubmitType::class, array(
                     'label' => 'Przypomnij hasło',
                     'attr' => array(
@@ -33,5 +28,9 @@ class RememberPasswordType extends AbstractType
     
     public function configureOptions(OptionsResolver $resolver) {
         parent::configureOptions($resolver);
+        
+        $resolver->setDefaults(array(
+            'validation_groups' => array('RememberPassword')
+        ));
     }
 }

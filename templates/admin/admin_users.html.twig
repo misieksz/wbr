@@ -54,7 +54,7 @@
  {% if is_granted('ROLE_MODERATOR') %}
      {% block javascripts %}
          {{ parent() }}
-         <script src="{{ asset('js/deleteAlert_1_1.js') }}"></script>
+         <script src="{{ asset('js/deleteAlert.js') }}"></script>
          <script>
     
              $(document).ready(function(){

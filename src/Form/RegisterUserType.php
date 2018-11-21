@@ -30,6 +30,15 @@ class RegisterUserType extends AbstractType {
                 ->add('email', EmailType::class, array(
                     'label' => 'Adres email'
                 ))
+                ->add('plainPassword', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'first_options' => array(
+                        'label' => 'Hasło'
+                    ),
+                    'second_options' => array(
+                        'label' => 'Powtórz hasło'
+                    )
+                ))
                 ->add('register', SubmitType::class, array(
                     'label' => 'Zapisz zmiany',
                     'attr' => array(

@@ -85,7 +85,7 @@ class PagesController extends Controller
         ));
         
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($articles, $page, 3);
+        $pagination = $paginator->paginate($articles, $page, 10);
         
         
         return array(
@@ -208,11 +208,22 @@ class PagesController extends Controller
      */
     public function remember_password(Request $Request)
     {
-        $rememberForm = $this->createForm(RememberPasswordType::class);
+        $User = new User();
+               
+        $rememberForm = $this->createForm(RememberPasswordType::class, $User);
         
             $rememberForm->handleRequest($Request);
             if($rememberForm->isSubmitted() && $rememberForm->isValid())
             {
+                $checkEmail = $this->getDoctrine()->getRepository(User::class)
+                        ->findOneByEmail($rememberForm->get('email')->getData());
+                
+                if(null == $checkEmail)
+                {
+                    $error = new FormError('Nieprawidłowy adres e-mail!');
+                    $rememberForm->addError($error);
+                }
+                
                 try{
                 $userEmail = $rememberForm->get('email')->getData();
                 $userManager = $this->get('user_manager');
@@ -222,8 +233,8 @@ class PagesController extends Controller
                 return $this->redirect($this->generateUrl('remember_password'));
                 
                 } catch  (UserException $ex) {
-                 // $error = new FormError($ex->getMessage());
-                  //$rememberForm->addError($error);
+                  $error = new FormError($ex->getMessage());
+                  $rememberForm->addError($error);
                 }
                 
                 
@@ -244,12 +255,12 @@ class PagesController extends Controller
          try{
          $userManager = $this->get('user_manager');
          $userManager->resetPassword($actionToken);
-         $this->get('session')->getFlashBag('success', 'Nowe hasło zostało wysłane na Twój adres email!');
+         $this->get('session')->getFlashBag()->add('success', 'Nowe hasło zostało wysłane na Twój adres email!');
          } catch (Exception $ex) {
              $this->get('session')->getFlashBag('danger', $ex->getMessage());
          }
          
-         return $this->redirect($this->generateUrl('login'));
+         return $this->redirect($this->generateUrl('remember_password'));
          
      }
     

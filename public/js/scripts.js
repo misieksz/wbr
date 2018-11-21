@@ -1,6 +1,8 @@
 $(document).ready(function(e) {
 
 
+    $('body').cookieAlert();
+    
     miniatures = $('.miniatures a');
 
      $(miniatures).lightbox({
